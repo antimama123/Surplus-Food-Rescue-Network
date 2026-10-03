@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Surplus Food Rescue Network</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              forest: '#0F5229', forestHover: '#0A3B1D', mint: '#4CAF50',
+              lightMint: '#E8F5E9', orange: '#E65C00', orangeHover: '#CC5200'
+            }
+          },
+          fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style> body { font-family: 'Plus Jakarta Sans', sans-serif; background: #F9FBF8; } </style>
+</head>
+<body class="min-h-screen flex bg-[#F9FBF8]">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-brand-forest text-white min-h-screen p-5 flex flex-col justify-between fixed left-0 top-0 bottom-0 z-40">
+    <div>
+      <div class="flex items-center gap-3 mb-8 px-2">
+        <div class="w-10 h-10 rounded-full bg-white text-brand-forest flex items-center justify-center font-bold text-sm shadow">SFRN</div>
+        <div>
+          <h2 class="font-extrabold text-lg leading-tight">Surplus<span class="text-brand-orange">Food</span></h2>
+          <span class="text-[10px] text-emerald-200 uppercase font-semibold">Admin Panel</span>
+        </div>
+      </div>
+
+      <nav class="space-y-2">
+        <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/10 text-white font-semibold text-sm">
+          <i class="fa-solid fa-chart-pie w-5"></i> Dashboard
+        </a>
+        <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-emerald-100 hover:bg-white/5 font-semibold text-sm transition">
+          <i class="fa-solid fa-users w-5"></i> Manage Users
+        </a>
+        <a href="surplus food.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-emerald-100 hover:bg-white/5 font-semibold text-sm transition">
+          <i class="fa-solid fa-utensils w-5"></i> Food Listings
+        </a>
+        <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-emerald-100 hover:bg-white/5 font-semibold text-sm transition">
+          <i class="fa-solid fa-truck-ramp-box w-5"></i> Claims & Pickups
+        </a>
+      </nav>
+    </div>
+
+    <div class="pt-5 border-t border-emerald-800/60">
+      <a href="login.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-red-200 hover:bg-red-500/10 font-semibold text-sm transition">
+        <i class="fa-solid fa-right-from-bracket w-5"></i> Sign Out
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="ml-64 flex-grow p-8">
+    <header class="flex justify-between items-center mb-8">
+      <div>
+        <h1 class="text-2xl font-extrabold text-gray-900">System Admin Dashboard</h1>
+        <p class="text-gray-500 text-sm">Overview of platform donations, users, and distribution metrics.</p>
+      </div>
+      <div class="flex items-center gap-4">
+        <span class="bg-emerald-100 text-brand-forest text-xs px-3 py-1.5 rounded-full font-bold">Admin Active</span>
+      </div>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-8">
+      <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm">
+        <span class="text-xs font-bold uppercase text-gray-400">Total Rescued</span>
+        <div class="text-2xl font-extrabold text-brand-forest mt-2">1,450 kg</div>
+      </div>
+      <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm">
+        <span class="text-xs font-bold uppercase text-gray-400">Total Donors</span>
+        <div class="text-2xl font-extrabold text-gray-900 mt-2">124</div>
+      </div>
+      <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm">
+        <span class="text-xs font-bold uppercase text-gray-400">Recipients / NGOs</span>
+        <div class="text-2xl font-extrabold text-gray-900 mt-2">86</div>
+      </div>
+      <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm">
+        <span class="text-xs font-bold uppercase text-gray-400">Pending Approvals</span>
+        <div class="text-2xl font-extrabold text-amber-600 mt-2">8</div>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

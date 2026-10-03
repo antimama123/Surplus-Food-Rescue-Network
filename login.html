@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | Surplus Food Rescue Network</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            forest: '#0F5229', forestHover: '#0A3B1D', mint: '#4CAF50',
+                            lightMint: '#E8F5E9', ultraLight: '#F9FBF8', orange: '#E65C00',
+                            orangeHover: '#CC5200', redAccent: '#D9381E'
+                        }
+                    },
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #F9FBF8; }
+        .role-card.selected { border-color: #0F5229; background: #E8F5E9; box-shadow: 0 0 0 2px #0F5229; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <header class="bg-white/95 border-b border-emerald-100 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2">
+                <div class="w-10 h-10 rounded-full bg-brand-forest text-white flex items-center justify-center font-bold text-sm">SFRN</div>
+                <span class="font-extrabold text-brand-forest">Surplus<span class="text-brand-orange">Food</span></span>
+            </a>
+            <a href="register.html" class="text-sm font-semibold text-brand-forest">Create Account →</a>
+        </div>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center py-12 px-4">
+        <div class="w-full max-w-md">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-extrabold">Welcome Back</h1>
+                <p class="text-gray-500 text-sm mt-2">Sign in to your account</p>
+            </div>
+            <div class="bg-white rounded-3xl border border-emerald-100 shadow-lg p-8">
+                <form onsubmit="handleLogin(event)" class="space-y-5">
+                    <div>
+                        <label class="block text-xs font-bold uppercase mb-3">Select Your Role</label>
+                        <div class="grid grid-cols-3 gap-3">
+                            <div class="role-card cursor-pointer border-2 border-gray-200 rounded-2xl p-3 text-center" data-role="donor" onclick="selectRole('donor')">
+                                <div class="w-10 h-10 mx-auto rounded-xl bg-orange-100 text-brand-orange flex items-center justify-center mb-2"><i class="fa-solid fa-hand-holding-heart"></i></div>
+                                <span class="text-xs font-bold">Donor</span>
+                            </div>
+                            <div class="role-card cursor-pointer border-2 border-gray-200 rounded-2xl p-3 text-center" data-role="recipient" onclick="selectRole('recipient')">
+                                <div class="w-10 h-10 mx-auto rounded-xl bg-emerald-100 text-brand-forest flex items-center justify-center mb-2"><i class="fa-solid fa-house-chimney"></i></div>
+                                <span class="text-xs font-bold">Recipient</span>
+                            </div>
+                            <div class="role-card cursor-pointer border-2 border-gray-200 rounded-2xl p-3 text-center" data-role="admin" onclick="selectRole('admin')">
+                                <div class="w-10 h-10 mx-auto rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center mb-2"><i class="fa-solid fa-user-shield"></i></div>
+                                <span class="text-xs font-bold">Admin</span>
+                            </div>
+                        </div>
+                        <input type="hidden" id="selectedRole">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase mb-1">Email</label>
+                        <input type="email" id="email" required placeholder="you@example.com" class="w-full px-4 py-3 bg-gray-50 border rounded-xl text-sm focus:ring-2 focus:ring-brand-forest outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase mb-1">Password</label>
+                        <input type="password" id="password" required placeholder="••••••••" class="w-full px-4 py-3 bg-gray-50 border rounded-xl text-sm focus:ring-2 focus:ring-brand-forest outline-none">
+                    </div>
+                    <button type="submit" class="w-full py-3.5 bg-brand-forest text-white font-bold rounded-xl text-sm hover:bg-brand-forestHover">Sign In</button>
+                </form>
+                <p class="mt-6 text-center text-sm text-gray-500">Don't have an account? <a href="register.html" class="font-bold text-brand-orange">Register</a></p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let currentRole = null;
+        function selectRole(role) {
+            currentRole = role;
+            document.getElementById('selectedRole').value = role;
+            document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
+            document.querySelector(`[data-role="${role}"]`).classList.add('selected');
+        }
+        function handleLogin(e) {
+            e.preventDefault();
+            if (!currentRole) { alert('Please select a role'); return; }
+            const email = document.getElementById('email').value;
+            const name = email.split('@')[0];
+            localStorage.setItem('sfrn_user', JSON.stringify({ email, name, role: currentRole, loggedIn: true }));
+            if (currentRole === 'donor') location.href = 'dashboard-donor.html';
+            else if (currentRole === 'recipient') location.href = 'dashboard-recipient.html';
+            else location.href = 'dashboard-admin.html';
+        }
+    </script>
+</body>
+</html>

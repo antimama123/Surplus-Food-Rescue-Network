@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surplus Food Rescue Network | Home, About, Services & Contact</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            forest: '#0F5229',
+                            forestHover: '#0A3B1D',
+                            mint: '#4CAF50',
+                            lightMint: '#E8F5E9',
+                            ultraLight: '#F9FBF8',
+                            orange: '#E65C00',
+                            orangeHover: '#CC5200',
+                            redAccent: '#D9381E',
+                            borderLight: '#E2E8F0'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 30px -10px rgba(15, 82, 41, 0.08)',
+                        'glow': '0 15px 35px -5px rgba(230, 92, 0, 0.25)',
+                        'card': '0 10px 25px -5px rgba(0, 0, 0, 0.05)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #F9FBF8;
+            color: #1E293B;
+        }
+
+        /* Glassmorphism Navigation Header */
+        .glass-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(15, 82, 41, 0.1);
+        }
+
+        /* Nav link active indicator */
+        .nav-link.active-nav {
+            color: #0F5229;
+            font-weight: 800;
+            border-bottom: 2.5px solid #E65C00;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #F9FBF8;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #A3D9B1;
+            border-radius: 99px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0F5229;
+        }
+    </style>
+</head>
+
+<body class="antialiased selection:bg-brand-orange selection:text-white flex flex-col min-h-screen">
+
+    <header class="sticky top-0 z-50 glass-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+
+            <!-- User Uploaded Logo -->
+            <a href="#" onclick="switchTab('home')" class="flex items-center space-x-3 group">
+                <div
+                    class="w-12 h-12 rounded-full bg-white p-0.5 shadow-md border-2 border-brand-mint/30 overflow-hidden flex items-center justify-center group-hover:scale-105 transition-transform">
+                    <img src="WhatsApp Image 2026-09-22 at 12.35.09 PM.jpeg" alt="Surplus Food Rescue Network Logo"
+                        class="w-full h-full object-contain rounded-full"
+                        onerror="this.onerror=null; this.src='https://placehold.co/120x120/0F5229/FFFFFF?text=SFRN';">
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl font-extrabold tracking-tight text-brand-forest leading-tight">
+                        Surplus<span class="text-brand-orange">Food</span>
+                    </span>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-emerald-800/80">Rescue
+                        Network</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links (Strictly 4 Pages: Home, About, Services, Contact) -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-gray-700">
+                <button onclick="switchTab('home')" id="nav-home"
+                    class="nav-link py-2 transition-all active-nav">Home</button>
+                <button onclick="switchTab('about')" id="nav-about" class="nav-link py-2 transition-all">About
+                    Us</button>
+                <button onclick="switchTab('services')" id="nav-services"
+                    class="nav-link py-2 transition-all">Services</button>
+                <button onclick="switchTab('contact')" id="nav-contact" class="nav-link py-2 transition-all">Contact
+                    Us</button>
+            </nav>
+
+            <!-- Action Buttons: Donate & Claim -->
+            <div class="hidden lg:flex items-center space-x-3">
+                <button onclick="openDonateModal()"
+                    class="px-5 py-2.5 rounded-full bg-brand-orange text-white font-bold text-xs shadow-glow hover:bg-brand-orangeHover transition-all flex items-center gap-2 hover:scale-105">
+                    <i class="fa-solid fa-heart-circle-plus"></i>
+                    <span>Donate Food</span>
+                </button>
+                <button onclick="openClaimModal('General Claim')"
+                    class="px-5 py-2.5 rounded-full bg-brand-forest text-white font-bold text-xs hover:bg-brand-forestHover transition-all flex items-center gap-2 hover:scale-105">
+                    <i class="fa-solid fa-hand-holding-hand"></i>
+                    <span>Claim Food</span>
+                </button>
+
+            </div>
+            <div class="hidden lg:flex items-center space-x-3">
+                <a href="login.html"
+                    class="px-4 py-2.5 rounded-full border-2 border-brand-forest text-brand-forest font-bold text-xs hover:bg-brand-forest hover:text-white transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    <span>Sign In</span>
+                </a>
+            </div>
+
+            <!-- Mobile Hamburger Toggle -->
+            <button onclick="toggleMobileNav()" class="md:hidden text-brand-forest p-2 rounded-xl focus:outline-none">
+                <i class="fa-solid fa-bars text-2xl" id="navToggleIcon"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Nav Drawer -->
+        <div id="mobileDrawer"
+            class="hidden md:hidden bg-white border-b border-emerald-100 px-6 py-4 space-y-3 shadow-lg">
+            <button onclick="switchTab('home'); toggleMobileNav();"
+                class="block w-full text-left font-bold py-2 border-b border-gray-100 text-brand-forest">Home</button>
+            <button onclick="switchTab('about'); toggleMobileNav();"
+                class="block w-full text-left font-bold py-2 border-b border-gray-100 text-gray-700">About Us</button>
+            <button onclick="switchTab('services'); toggleMobileNav();"
+                class="block w-full text-left font-bold py-2 border-b border-gray-100 text-gray-700">Services</button>
+            <button onclick="switchTab('contact'); toggleMobileNav();"
+                class="block w-full text-left font-bold py-2 border-b border-gray-100 text-gray-700">Contact Us</button>
+
+            <div class="grid grid-cols-2 gap-2 pt-2">
+                <button onclick="openDonateModal(); toggleMobileNav();"
+                    class="w-full py-2.5 rounded-xl bg-brand-orange text-white font-bold text-xs shadow-md">
+                    Donate Food
+                </button>
+                <button onclick="openClaimModal('General Claim'); toggleMobileNav();"
+                    class="w-full py-2.5 rounded-xl bg-brand-forest text-white font-bold text-xs shadow-md">
+                    Claim Food
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+
+        <!-- ==================== 1. HOME PAGE ==================== -->
+        <div id="page-home" class="page-content block">
+
+            <!-- Clean Hero Section (Without Background Image) -->
+            <section
+                class="py-16 md:py-24 bg-gradient-to-b from-emerald-50/50 via-white to-brand-ultraLight border-b border-emerald-100">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+                        <!-- Left Hero Content -->
+                        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                            <div
+                                class="inline-flex items-center gap-2 bg-emerald-100/70 px-4 py-1.5 rounded-full border border-emerald-200 text-xs sm:text-sm font-bold text-brand-forest">
+                                <i class="fa-solid fa-leaf text-brand-mint"></i>
+                                <span>Zero Food Waste • Zero Hunger Network</span>
+                            </div>
+
+                            <h1
+                                class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 tracking-tight leading-[1.15]">
+                                Rescue Surplus Food, <br>
+                                <span class="text-brand-forest">Feed Local</span>
+                                <span class="text-brand-orange">Communities.</span>
+                            </h1>
+
+                            <p class="text-gray-600 text-base sm:text-lg max-w-2xl leading-relaxed mx-auto lg:mx-0">
+                                Connecting caterers, restaurants, supermarkets, and households directly with nearby
+                                shelters, NGOs, and food banks in real-time.
+                            </p>
+
+                            <!-- Prominent Donate Food & Claim Food Hero Buttons -->
+                            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                                <button onclick="openDonateModal()"
+                                    class="px-7 py-3.5 rounded-xl bg-brand-orange text-white font-bold text-sm shadow-glow hover:bg-brand-orangeHover transition-all flex items-center gap-2 hover:scale-105">
+                                    <i class="fa-solid fa-plus-circle"></i> Donate Surplus Food
+                                </button>
+                                <button onclick="openClaimModal('General Hero Claim')"
+                                    class="px-7 py-3.5 rounded-xl bg-brand-forest text-white font-bold text-sm hover:bg-brand-forestHover transition-all flex items-center gap-2 hover:scale-105">
+                                    <i class="fa-solid fa-hand-holding-heart"></i> Claim Food For Shelter
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Right Showcase Card Displaying Uploaded Logo -->
+                        <div class="lg:col-span-5 flex justify-center">
+                            <div
+                                class="bg-white p-8 rounded-3xl border border-emerald-100 shadow-soft text-center space-y-6 max-w-md w-full relative">
+                                <div
+                                    class="w-36 h-36 mx-auto rounded-full bg-white p-1 shadow-md border-4 border-emerald-100 flex items-center justify-center overflow-hidden">
+                                    <img src="WhatsApp Image 2026-09-22 at 12.35.09 PM.jpeg"
+                                        alt="Surplus Food Rescue Network Logo"
+                                        class="w-full h-full object-contain rounded-full"
+                                        onerror="this.onerror=null; this.src='https://placehold.co/180x180/0F5229/FFFFFF?text=SFRN';">
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-extrabold text-brand-forest">Surplus <span
+                                            class="text-brand-orange">Food</span></h3>
+                                    <p class="text-xs font-bold uppercase tracking-widest text-emerald-800/70 mt-1">
+                                        Rescue Network</p>
+                                </div>
+                                <div
+                                    class="bg-emerald-50 p-4 rounded-2xl border border-emerald-100 text-left space-y-1">
+                                    <div class="text-xs font-bold text-brand-forest flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> Live
+                                        Rescue Network
+                                    </div>
+                                    <p class="text-xs text-gray-600">Active food pickup and claim requests available in
+                                        your area right now.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-12 bg-brand-ultraLight border-b border-emerald-100">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                        <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm">
+                            <div class="text-3xl font-extrabold text-brand-forest font-mono">150,000+</div>
+                            <div class="text-xs text-gray-600 mt-1 font-semibold">Meals Served</div>
+                        </div>
+                        <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm">
+                            <div class="text-3xl font-extrabold text-brand-orange font-mono">65 Tons</div>
+                            <div class="text-xs text-gray-600 mt-1 font-semibold">CO2 Reduced</div>
+                        </div>
+                        <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm">
+                            <div class="text-3xl font-extrabold text-brand-forest font-mono">520+</div>
+                            <div class="text-xs text-gray-600 mt-1 font-semibold">Active Donors</div>
+                        </div>
+                        <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm">
+                            <div class="text-3xl font-extrabold text-brand-orange font-mono">140+</div>
+                            <div class="text-xs text-gray-600 mt-1 font-semibold">Partner Shelters</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-16 bg-white border-b border-emerald-100">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+                        <div>
+                            <span
+                                class="text-xs font-bold uppercase tracking-widest text-brand-orange bg-orange-100 px-3 py-1 rounded-full">Live
+                                Food Feed</span>
+                            <h2 class="text-3xl font-extrabold text-gray-900 mt-2">Available Surplus Donations</h2>
+                        </div>
+                        <div class="flex gap-3">
+                            <div class="w-full md:w-64 relative">
+                                <input type="text" id="searchInput" onkeyup="filterListings()"
+                                    placeholder="Search food, area..."
+                                    class="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-forest">
+                                <i class="fa-solid fa-search absolute left-3 top-3 text-gray-400 text-xs"></i>
+                            </div>
+                            <button onclick="openDonateModal()"
+                                class="px-4 py-2 bg-brand-orange text-white text-xs font-bold rounded-xl whitespace-nowrap shadow-sm hover:bg-brand-orangeHover">
+                                + Post Food
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="homeListingsGrid">
+                        <!-- JS Dynamic Cards with Claim Food buttons -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== 2. ABOUT PAGE ==================== -->
+        <div id="page-about" class="page-content hidden">
+            <section class="py-16 bg-white border-b border-emerald-100">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <span
+                            class="text-xs font-bold uppercase tracking-widest text-brand-forest bg-emerald-100 px-3 py-1 rounded-full">Who
+                            We Are</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mt-3">About Surplus Food Rescue
+                            Network</h2>
+                        <p class="text-gray-600 mt-3 text-sm sm:text-base leading-relaxed">
+                            We are a technology-driven compassionate bridge committed to tackling food waste and
+                            eradicating hunger across urban and rural communities.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+                        <div class="space-y-4">
+                            <h3 class="text-2xl font-bold text-brand-forest">Our Mission & Purpose</h3>
+                            <p class="text-gray-600 leading-relaxed text-sm">
+                                Millions of tons of quality, wholesome food are discarded every day from hotels,
+                                corporate canteens, and catered events while millions experience food insecurity.
+                            </p>
+                            <p class="text-gray-600 leading-relaxed text-sm">
+                                The Surplus Food Rescue Network bridges this gap using real-time dispatch alerts, strict
+                                food safety protocols, and certified volunteer networks to ensure excess food nourishes
+                                human lives.
+                            </p>
+
+                            <div class="pt-4 flex flex-wrap gap-4">
+                                <button onclick="openDonateModal()"
+                                    class="px-5 py-2.5 bg-brand-orange text-white text-xs font-bold rounded-xl shadow-glow hover:bg-brand-orangeHover">
+                                    Become a Food Donor
+                                </button>
+                                <button onclick="openClaimModal('About Page NGO Claim')"
+                                    class="px-5 py-2.5 bg-brand-forest text-white text-xs font-bold rounded-xl hover:bg-brand-forestHover">
+                                    Register as Food Recipient
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="bg-brand-ultraLight p-8 rounded-3xl border border-emerald-100 text-center">
+                            <div
+                                class="w-36 h-36 mx-auto rounded-full bg-white p-1 shadow-md border-4 border-emerald-100 flex items-center justify-center overflow-hidden mb-4">
+                                <img src="WhatsApp Image 2026-09-22 at 12.35.09 PM.jpeg"
+                                    alt="Surplus Food Rescue Network Official Logo"
+                                    class="w-full h-full object-contain rounded-full"
+                                    onerror="this.onerror=null; this.src='https://placehold.co/150x150/0F5229/FFFFFF?text=SFRN';">
+                            </div>
+                            <h4 class="text-xl font-extrabold text-brand-forest">Surplus Food Rescue Network</h4>
+                            <p class="text-xs text-gray-500 font-semibold uppercase tracking-widest mt-1">Official Food
+                                Safety & Relief Partner</p>
+                        </div>
+                    </div>
+
+                    <!-- Core Pillars -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-3xl border border-emerald-100 shadow-sm">
+                            <div
+                                class="w-12 h-12 rounded-2xl bg-brand-forest text-white flex items-center justify-center font-bold mb-4">
+                                <i class="fa-solid fa-heart"></i>
+                            </div>
+                            <h4 class="font-bold text-gray-900 text-lg mb-2">Compassion First</h4>
+                            <p class="text-xs text-gray-600 leading-relaxed">Treating every individual with dignity by
+                                delivering fresh, clean, high-quality meals.</p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-3xl border border-emerald-100 shadow-sm">
+                            <div
+                                class="w-12 h-12 rounded-2xl bg-brand-orange text-white flex items-center justify-center font-bold mb-4">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <h4 class="font-bold text-gray-900 text-lg mb-2">Food Hygiene & Safety</h4>
+                            <p class="text-xs text-gray-600 leading-relaxed">Rigorous temperature checking, clean
+                                storage containers, and timed expiration tracking.</p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-3xl border border-emerald-100 shadow-sm">
+                            <div
+                                class="w-12 h-12 rounded-2xl bg-brand-mint text-white flex items-center justify-center font-bold mb-4">
+                                <i class="fa-solid fa-seedling"></i>
+                            </div>
+                            <h4 class="font-bold text-gray-900 text-lg mb-2">Environmental Care</h4>
+                            <p class="text-xs text-gray-600 leading-relaxed">Diverting organic waste from landfills to
+                                directly combat greenhouse gas methane emissions.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== 3. SERVICES PAGE ==================== -->
+        <div id="page-services" class="page-content hidden">
+            <section class="py-16 bg-white border-b border-emerald-100">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <span
+                            class="text-xs font-bold uppercase tracking-widest text-brand-orange bg-orange-100 px-3 py-1 rounded-full">Our
+                            Core Services</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mt-3">What We Do</h2>
+                        <p class="text-gray-600 mt-2 text-sm sm:text-base">Comprehensive surplus food management
+                            solutions for businesses and relief organizations.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                        <!-- Service 1 -->
+                        <div
+                            class="bg-brand-ultraLight p-8 rounded-3xl border border-emerald-100 flex flex-col justify-between">
+                            <div>
+                                <div
+                                    class="w-14 h-14 rounded-2xl bg-brand-forest text-white flex items-center justify-center font-bold text-xl mb-6 shadow-md">
+                                    <i class="fa-solid fa-truck-fast"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">On-Demand Food Rescue Logistics</h3>
+                                <p class="text-gray-600 text-xs sm:text-sm leading-relaxed mb-4">
+                                    Real-time pickup coordination for restaurants, banquets, and caterers. Our verified
+                                    volunteer drivers pick up surplus food within 30 minutes of posting.
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <button onclick="openDonateModal()"
+                                    class="text-xs font-bold text-brand-orange hover:underline">Donate Food Now
+                                    →</button>
+                                <button onclick="openClaimModal('Logistics Claim')"
+                                    class="text-xs font-bold text-brand-forest hover:underline">Claim Food →</button>
+                            </div>
+                        </div>
+
+                        <!-- Service 2 -->
+                        <div
+                            class="bg-brand-ultraLight p-8 rounded-3xl border border-emerald-100 flex flex-col justify-between">
+                            <div>
+                                <div
+                                    class="w-14 h-14 rounded-2xl bg-brand-orange text-white flex items-center justify-center font-bold text-xl mb-6 shadow-md">
+                                    <i class="fa-solid fa-building-circle-check"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">Corporate & Banquet Partnerships</h3>
+                                <p class="text-gray-600 text-xs sm:text-sm leading-relaxed mb-4">
+                                    Dedicated recurring food donation setups for tech parks, university cafeterias,
+                                    hotel chains, and large wedding venues with zero hassle.
+                                </p>
+                            </div>
+                            <button onclick="switchTab('contact')"
+                                class="text-xs font-bold text-brand-orange hover:text-brand-forest transition-colors flex items-center gap-1">
+                                <span>Partner With Us</span> <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                            </button>
+                        </div>
+
+                        <!-- Service 3 -->
+                        <div
+                            class="bg-brand-ultraLight p-8 rounded-3xl border border-emerald-100 flex flex-col justify-between">
+                            <div>
+                                <div
+                                    class="w-14 h-14 rounded-2xl bg-brand-mint text-white flex items-center justify-center font-bold text-xl mb-6 shadow-md">
+                                    <i class="fa-solid fa-house-chimney-medical"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">Shelter & NGO Food Distribution</h3>
+                                <p class="text-gray-600 text-xs sm:text-sm leading-relaxed mb-4">
+                                    Direct integration with registered orphanages, night shelters, elder care homes, and
+                                    community kitchens ensuring equitable meal distribution.
+                                </p>
+                            </div>
+                            <button onclick="openClaimModal('NGO Shelter Partnership')"
+                                class="text-xs font-bold text-brand-forest hover:text-brand-orange transition-colors flex items-center gap-1">
+                                <span>Register Shelter / Claim Food</span> <i
+                                    class="fa-solid fa-chevron-right text-[10px]"></i>
+                            </button>
+                        </div>
+
+                        <!-- Service 4 -->
+                        <div
+                            class="bg-brand-ultraLight p-8 rounded-3xl border border-emerald-100 flex flex-col justify-between">
+                            <div>
+                                <div
+                                    class="w-14 h-14 rounded-2xl bg-brand-redAccent text-white flex items-center justify-center font-bold text-xl mb-6 shadow-md">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">ESG & Impact Certification</h3>
+                                <p class="text-gray-600 text-xs sm:text-sm leading-relaxed mb-4">
+                                    Comprehensive monthly reporting detailing kilograms of food rescued, CO2 emission
+                                    reduction, and social impact stats for corporate compliance.
+                                </p>
+                            </div>
+                            <button onclick="switchTab('contact')"
+                                class="text-xs font-bold text-brand-redAccent hover:text-brand-forest transition-colors flex items-center gap-1">
+                                <span>Request Impact Report</span> <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== 4. CONTACT PAGE ==================== -->
+        <div id="page-contact" class="page-content hidden">
+            <section class="py-16 bg-white border-b border-emerald-100">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <span
+                            class="text-xs font-bold uppercase tracking-widest text-brand-forest bg-emerald-100 px-3 py-1 rounded-full">Get
+                            In Touch</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mt-3">Contact Surplus Food Rescue
+                            Network</h2>
+                        <p class="text-gray-600 mt-2 text-sm sm:text-base">Have questions, feedback, or urgent food
+                            pickup/claim requirements? Reach out to our team.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+
+                        <div class="lg:col-span-5 space-y-6">
+                            <div class="bg-brand-ultraLight p-6 rounded-3xl border border-emerald-100 space-y-6">
+                                <h3 class="text-lg font-bold text-gray-900">Contact Information</h3>
+
+                                <div class="flex items-start space-x-4">
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-emerald-100 text-brand-forest flex items-center justify-center font-bold shrink-0">
+                                        <i class="fa-solid fa-phone"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs font-bold uppercase text-gray-500">24/7 Rescue Hotline</div>
+                                        <div class="text-sm font-bold text-gray-900 mt-0.5">+91 1800-FOOD-RESCUE</div>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start space-x-4">
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-orange-100 text-brand-orange flex items-center justify-center font-bold shrink-0">
+                                        <i class="fa-solid fa-envelope"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs font-bold uppercase text-gray-500">Email Address</div>
+                                        <div class="text-sm font-bold text-gray-900 mt-0.5">help@surplusfoodrescue.org
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start space-x-4">
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-emerald-100 text-brand-forest flex items-center justify-center font-bold shrink-0">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs font-bold uppercase text-gray-500">Central Dispatch HQ</div>
+                                        <div class="text-sm font-bold text-gray-900 mt-0.5">Eco Community Hub, Green
+                                            Sector 18</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contact Form -->
+                        <div class="lg:col-span-7 bg-white p-8 rounded-3xl border border-emerald-100 shadow-soft">
+                            <h3 class="text-xl font-bold text-gray-900 mb-6">Send Us a Direct Message</h3>
+
+                            <form onsubmit="handleContactSubmit(event)" class="space-y-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Your
+                                            Name</label>
+                                        <input type="text" required placeholder="e.g. Rahul Sharma"
+                                            class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-forest">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Email
+                                            Address</label>
+                                        <input type="email" required placeholder="rahul@example.com"
+                                            class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-forest">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Subject</label>
+                                    <input type="text" required placeholder="Bulk Event Rescue / Claim Query"
+                                        class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-forest">
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Message</label>
+                                    <textarea rows="4" required placeholder="How can our network assist you today?"
+                                        class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-forest"></textarea>
+                                </div>
+
+                                <button type="submit"
+                                    class="w-full py-3.5 bg-brand-forest text-white font-bold rounded-xl text-sm hover:bg-brand-forestHover transition-all shadow-md">
+                                    Submit Inquiry <i class="fa-solid fa-paper-plane ms-1"></i>
+                                </button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <footer class="bg-slate-900 text-gray-300 pt-12 pb-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-slate-800">
+
+                <!-- Branding using Uploaded Logo -->
+                <div class="md:col-span-2 space-y-3">
+                    <div class="flex items-center space-x-3">
+                        <div
+                            class="w-10 h-10 rounded-full bg-white p-0.5 overflow-hidden flex items-center justify-center">
+                            <img src="WhatsApp Image 2026-09-22 at 12.35.09 PM.jpeg"
+                                alt="Surplus Food Rescue Network Logo" class="w-full h-full object-contain rounded-full"
+                                onerror="this.onerror=null; this.src='https://placehold.co/100x100/0F5229/FFFFFF?text=SFRN';">
+                        </div>
+                        <span class="text-xl font-extrabold text-white">
+                            Surplus<span class="text-brand-orange">Food</span>
+                        </span>
+                    </div>
+                    <p class="text-gray-400 text-xs leading-relaxed max-w-sm">
+                        Surplus Food Rescue Network is a technology non-profit bridging excess food with hunger relief
+                        initiatives in real-time.
+                    </p>
+                </div>
+
+                <!-- Footer Navigation Links (Strictly 4 Pages) -->
+                <div>
+                    <h4 class="text-white font-bold text-xs uppercase tracking-wider mb-3">Site Links</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li><button onclick="switchTab('home')" class="hover:text-white transition-colors">Home</button>
+                        </li>
+                        <li><button onclick="switchTab('about')" class="hover:text-white transition-colors">About
+                                Us</button></li>
+                        <li><button onclick="switchTab('services')"
+                                class="hover:text-white transition-colors">Services</button></li>
+                        <li><button onclick="switchTab('contact')" class="hover:text-white transition-colors">Contact
+                                Us</button></li>
+                    </ul>
+                </div>
+
+                <!-- Action Hotlines -->
+                <div>
+                    <h4 class="text-white font-bold text-xs uppercase tracking-wider mb-3">Hotline</h4>
+                    <p class="text-xs text-brand-orange font-bold">+91 1800-FOOD-RESCUE</p>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="openDonateModal()"
+                            class="px-3 py-1.5 bg-brand-orange text-white text-[11px] font-bold rounded-lg">Donate</button>
+                        <button onclick="openClaimModal('Footer Claim')"
+                            class="px-3 py-1.5 bg-brand-forest text-white text-[11px] font-bold rounded-lg">Claim</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500">
+                <p>&copy; 2026 Surplus Food Rescue Network. All rights reserved.</p>
+                <div class="flex space-x-4 mt-3 sm:mt-0">
+                    <a href="#" class="hover:text-gray-400">Privacy Policy</a>
+                    <a href="#" class="hover:text-gray-400">Food Safety Guidelines</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="donateModal"
+        class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-2xl">
+            <button onclick="closeModal('donateModal')"
+                class="absolute top-5 right-5 text-gray-400 hover:text-gray-600 text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="flex items-center space-x-3 mb-6">
+                <div
+                    class="w-10 h-10 rounded-full bg-orange-100 text-brand-orange flex items-center justify-center font-bold">
+                    <i class="fa-solid fa-hand-holding-heart"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900">Donate Surplus Food</h3>
+                    <p class="text-xs text-gray-500">Post food details for instant shelter dispatch</p>
+                </div>
+            </div>
+
+            <form onsubmit="handleDonateSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Donor Business / Name</label>
+                    <input type="text" id="donateDonor" required placeholder="e.g. Royal Palace / Green Hotel"
+                        class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-forest">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Category</label>
+                        <select id="donateCategory"
+                            class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-forest">
+                            <option value="Cooked Meals">Cooked Meals</option>
+                            <option value="Fresh Produce">Fresh Produce</option>
+                            <option value="Bakery & Bread">Bakery & Bread</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Quantity</label>
+                        <input type="text" id="donateQty" required placeholder="e.g. 30 Meals / 10 Kg"
+                            class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-forest">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Food Items Description</label>
+                    <input type="text" id="donateTitle" required placeholder="e.g. Rice, Curry & Bread Trays"
+                        class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-forest">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Pickup Address</label>
+                    <input type="text" id="donateAddress" required placeholder="Full pickup address"
+                        class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-forest">
+                </div>
+
+                <button type="submit"
+                    class="w-full py-3.5 bg-brand-orange text-white font-bold rounded-xl text-sm shadow-glow hover:bg-brand-orangeHover transition-all">
+                    Publish Food Donation
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="claimModal"
+        class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-2xl">
+            <button onclick="closeModal('claimModal')"
+                class="absolute top-5 right-5 text-gray-400 hover:text-gray-600 text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="flex items-center space-x-3 mb-6">
+                <div
+                    class="w-10 h-10 rounded-full bg-emerald-100 text-brand-forest flex items-center justify-center font-bold">
+                    <i class="fa-solid fa-hand-holding-hand"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900">Claim Surplus Food</h3>
+                    <p class="text-xs text-gray-500" id="claimSubtitle">Request food pickup for shelter or community
+                        distribution</p>
+                </div>
+            </div>
+
+            <form onsubmit="handleClaimSubmit(event)" class="space-y-4">
+                <input type="hidden" id="claimItemName" value="">
+
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Organization / Shelter
+                        Name</label>
+                    <input type="text" id="claimOrg" required placeholder="e.g. Sunshine Orphanage Trust"
+                        class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-forest">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Contact Person</label>
+                        <input type="text" id="claimPerson" required placeholder="Name"
+                            class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-forest">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Phone Number</label>
+                        <input type="tel" id="claimPhone" required placeholder="Mobile No."
+                            class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-forest">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Beneficiary Count / Note</label>
+                    <input type="text" id="claimNote" placeholder="e.g. Serving 50 children tonight"
+                        class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-forest">
+                </div>
+
+                <button type="submit"
+                    class="w-full py-3.5 bg-brand-forest text-white font-bold rounded-xl text-sm hover:bg-brand-forestHover transition-all shadow-md">
+                    Confirm Food Claim Request
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="toast"
+        class="fixed bottom-6 right-6 bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 z-50 transform translate-y-24 opacity-0 transition-all duration-300">
+        <i class="fa-solid fa-circle-check text-brand-mint text-xl"></i>
+        <span class="text-xs sm:text-sm font-medium" id="toastMsg">Action successful!</span>
+    </div>
+
+    <script>
+        // Sample Food Listings
+        let sampleListings = [
+            { id: 1, title: "Whole Wheat Bread & Buns", category: "Bakery & Bread", qty: "15 Kg", donor: "Artisan Bakers", location: "Sector 12", expires: "Expires in 3 hrs" },
+            { id: 2, title: "Cooked Veg Thali Packets", category: "Cooked Meals", qty: "40 Boxes", donor: "Royal Caterers", location: "Central Market", expires: "Expires in 2 hrs" },
+            { id: 3, title: "Fresh Fruits & Vegetables", category: "Fresh Produce", qty: "25 Kg", donor: "Green Agro Store", location: "Station Road", expires: "Expires tomorrow" }
+        ];
+
+        // Tab Switcher (Strictly 4 Pages: Home, About, Services, Contact)
+        function switchTab(pageId) {
+            document.querySelectorAll('.page-content').forEach(el => el.classList.add('hidden'));
+
+            const target = document.getElementById('page-' + pageId);
+            if (target) {
+                target.classList.remove('hidden');
+            }
+
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active-nav'));
+            const activeBtn = document.getElementById('nav-' + pageId);
+            if (activeBtn) {
+                activeBtn.classList.add('active-nav');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Render Food Cards
+        function renderHomeListings() {
+            const container = document.getElementById('homeListingsGrid');
+            if (!container) return;
+
+            const searchVal = document.getElementById('searchInput') ? document.getElementById('searchInput').value.toLowerCase() : '';
+            container.innerHTML = '';
+
+            const filtered = sampleListings.filter(item =>
+                item.title.toLowerCase().includes(searchVal) ||
+                item.donor.toLowerCase().includes(searchVal) ||
+                item.location.toLowerCase().includes(searchVal)
+            );
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-3xl border border-emerald-100 shadow-soft flex flex-col justify-between";
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full bg-emerald-100 text-brand-forest">${item.category}</span>
+                            <span class="text-[11px] font-bold text-brand-redAccent bg-red-50 px-2 py-0.5 rounded-full">${item.expires}</span>
+                        </div>
+                        <h3 class="font-bold text-gray-900 text-base mb-2">${item.title}</h3>
+                        <p class="text-xs text-gray-600 mb-1"><strong>Quantity:</strong> ${item.qty}</p>
+                        <p class="text-xs text-gray-600"><strong>Donor:</strong> ${item.donor}</p>
+                    </div>
+                    <div class="mt-6 pt-3 border-t border-gray-100 flex items-center justify-between">
+                        <span class="text-xs text-brand-forest font-medium"><i class="fa-solid fa-location-dot text-brand-orange me-1"></i> ${item.location}</span>
+                        <button onclick="openClaimModal('${item.title}')" class="px-3.5 py-1.5 rounded-xl bg-brand-forest text-white text-xs font-bold hover:bg-brand-forestHover transition-all">Claim Food</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterListings() {
+            renderHomeListings();
+        }
+
+        function openDonateModal() {
+            document.getElementById('donateModal').classList.remove('hidden');
+        }
+
+        function openClaimModal(itemName) {
+            document.getElementById('claimItemName').value = itemName || '';
+            document.getElementById('claimSubtitle').innerText = itemName ? `Claiming item: "${itemName}"` : 'Request food pickup for shelter or community distribution';
+            document.getElementById('claimModal').classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        function handleDonateSubmit(e) {
+            e.preventDefault();
+            const donor = document.getElementById('donateDonor').value;
+            const cat = document.getElementById('donateCategory').value;
+            const qty = document.getElementById('donateQty').value;
+            const title = document.getElementById('donateTitle').value;
+            const address = document.getElementById('donateAddress').value;
+
+            sampleListings.unshift({
+                id: Date.now(),
+                title: title,
+                category: cat,
+                qty: qty,
+                donor: donor,
+                location: address,
+                expires: "Expires in 4 hrs"
+            });
+
+            renderHomeListings();
+            closeModal('donateModal');
+            showToast("Surplus food posted successfully!");
+            switchTab('home');
+            e.target.reset();
+        }
+
+        function handleClaimSubmit(e) {
+            e.preventDefault();
+            const org = document.getElementById('claimOrg').value;
+            const item = document.getElementById('claimItemName').value || "Food Batch";
+            closeModal('claimModal');
+            showToast(`Claim code generated for ${org}! Volunteer assigned.`);
+            e.target.reset();
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            showToast("Message sent! Our team will contact you shortly.");
+            e.target.reset();
+        }
+
+        function toggleMobileNav() {
+            document.getElementById('mobileDrawer').classList.toggle('hidden');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3200);
+        }
+
+        window.onload = function () {
+            renderHomeListings();
+        };
+    </script>
+</body>
+
+</html>
